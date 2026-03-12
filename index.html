@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GLURT</title>
+
+<!--
+=====================================================
+GLURT ULTRA SITE V7
+Mobile First + Interactive
+=====================================================
+
+НОВОЕ В V7
+
+✔ стабильное интро
+✔ мобильное бургер‑меню
+✔ swipe дискография (листать пальцем)
+✔ fullscreen плеер
+✔ animated particles background
+✔ таймлайн релизов
+✔ адаптация для телефонов
+✔ один HTML файл
+
+=====================================================
+КАК ДОБАВИТЬ ТРЕК
+
+<div class="track" data-audio="track.mp3">
+ <div class="track-left">
+  <button class="play">▶</button>
+  <span>Название</span>
+ </div>
+ <span>2026</span>
+</div>
+
+=====================================================
+-->
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+font-family:Inter,sans-serif;
+background:#050505;
+color:white;
+overflow-x:hidden;
+}
+
+canvas#particles{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:0;
+opointer-events:none;
+}
+
+.container{
+max-width:1100px;
+margin:auto;
+padding:40px 20px;
+position:relative;
+z-index:2;
+}
+
+/* INTRO */
+
+#intro{
+position:fixed;
+width:100%;
+height:100vh;
+background:black;
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:3000;
+}
+
+#intro h1{
+font-size:clamp(50px,12vw,90px);
+letter-spacing:6px;
+animation:glitch 1.4s infinite;
+}
+
+@keyframes glitch{
+0%{text-shadow:2px 0 red,-2px 0 cyan}
+50%{text-shadow:-2px 0 red,2px 0 cyan}
+100%{text-shadow:2px 0 red,-2px 0 cyan}
+}
+
+/* NAV */
+
+nav{
+position:fixed;
+top:0;
+width:100%;
+background:#050505e8;
+backdrop-filter:blur(10px);
+border-bottom:1px solid #111;
+z-index:100;
+}
+
+.nav-inner{
+display:flex;
+justify-content:space-between;
+align-items:center;
+max-width:1100px;
+margin:auto;
+padding:16px 20px;
+}
+
+.logo{letter-spacing:4px;font-weight:600}
+
+.menu{
+display:flex;
+}
+
+.menu a{
+margin-left:22px;
+color:#888;
+text-decoration:none;
+font-size:14px;
+}
+
+.menu a:hover{color:white}
+
+/* BURGER */
+
+.burger{
+display:none;
+flex-direction:column;
+cursor:pointer;
+}
+
+.burger span{
+width:22px;
+height:2px;
+background:white;
+margin:4px 0;
+}
+
+.mobile-menu{
+position:fixed;
+top:0;
+right:-100%;
+width:70%;
+height:100vh;
+background:#060606;
+padding:80px 30px;
+transition:.4s;
+z-index:200;
+}
+
+.mobile-menu a{
+display:block;
+margin-bottom:22px;
+color:#aaa;
+text-decoration:none;
+font-size:18px;
+}
+
+.mobile-menu.active{right:0}
+
+/* HERO */
+
+.hero{
+min-height:100vh;
+display:flex;
+align-items:center;
+}
+
+.hero h1{
+font-size:clamp(60px,14vw,120px);
+letter-spacing:-4px;
+animation:glitch 1.4s infinite;
+}
+
+.hero p{
+margin-top:10px;
+color:#aaa;
+}
+
+section{
+padding:100px 0;
+border-top:1px solid #111;
+}
+
+h2{
+font-size:clamp(26px,6vw,36px);
+margin-bottom:30px;
+}
+
+/* SWIPE DISCOGRAPHY */
+
+.discography{
+display:flex;
+overflow-x:auto;
+gap:20px;
+scroll-snap-type:x mandatory;
+padding-bottom:10px;
+}
+
+.album{
+min-width:160px;
+scroll-snap-align:start;
+}
+
+.album img{
+width:100%;
+border-radius:6px;
+}
+
+.album span{
+display:block;
+margin-top:6px;
+color:#aaa;
+font-size:13px;
+}
+
+/* TRACKS */
+
+.track{
+padding:16px 0;
+border-bottom:1px solid #111;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.track-left{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.play{
+border:1px solid #444;
+background:none;
+color:white;
+width:30px;
+height:30px;
+cursor:pointer;
+}
+
+.play:hover{background:white;color:black}
+
+/* FULL PLAYER */
+
+#player-screen{
+position:fixed;
+bottom:-100%;
+left:0;
+width:100%;
+height:100%;
+background:#050505;
+z-index:400;
+transition:.5s;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+#player-screen.active{bottom:0}
+
+#player-screen h3{
+margin-bottom:20px;
+}
+
+.player-controls button{
+margin:10px;
+padding:12px 20px;
+background:#111;
+border:1px solid #333;
+color:white;
+}
+
+/* TIMELINE */
+
+.timeline{
+border-left:2px solid #222;
+padding-left:20px;
+}
+
+.timeline-item{
+margin-bottom:24px;
+}
+
+.timeline-item span{
+color:#777;
+font-size:13px;
+}
+
+/* MOBILE */
+
+@media(max-width:750px){
+
+.menu{display:none}
+
+.burger{display:flex}
+
+.track{
+flex-direction:column;
+align-items:flex-start;
+gap:6px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="particles"></canvas>
+
+
+
+<nav>
+<div class="nav-inner">
+
+<div class="logo">GLURT</div>
+
+<div class="menu">
+<a href="#about">Обо мне</a>
+<a href="#music">Музыка</a>
+<a href="#timeline">Релизы</a>
+<a href="#lyrics">Тексты</a>
+<a href="#links">Ссылки</a>
+</div>
+
+<div class="burger" id="burger">
+<span></span>
+<span></span>
+<span></span>
+</div>
+
+</div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+<a href="#about">Обо мне</a>
+<a href="#music">Музыка</a>
+<a href="#timeline">Релизы</a>
+<a href="#lyrics">Тексты</a>
+<a href="#links">Ссылки</a>
+</div>
+
+<section class="hero container">
+<div>
+<h1>GLURT</h1>
+<p>Музыка между шумом и тишиной.</p>
+</div>
+</section>
+
+<section id="about" class="container">
+<h2>Обо мне</h2>
+<p>GLURT — независимый музыкальный проект. Музыка доступна на всех площадках. Основная информация публикуется в VK и Telegram.</p>
+</section>
+
+<section id="music" class="container">
+<h2>Музыка</h2>
+
+<div class="discography">
+
+<div class="album">
+<img src="https://via.placeholder.com/300">
+<span>Искренний • 2026</span>
+</div>
+
+<div class="album">
+<img src="https://via.placeholder.com/300">
+<span>Шум • 2026</span>
+</div>
+
+<div class="album">
+<img src="https://via.placeholder.com/300">
+<span>Дожить • 2023</span>
+</div>
+
+</div>
+
+<br><br>
+
+<div class="track" data-audio="">
+<div class="track-left">
+<button class="play">▶</button>
+<span>Искренний</span>
+</div>
+<span>2026</span>
+</div>
+
+</section>
+
+<section id="timeline" class="container">
+<h2>Релизы</h2>
+
+<div class="timeline">
+
+<div class="timeline-item">
+<strong>Искренний</strong><br>
+<span>2026</span>
+</div>
+
+<div class="timeline-item">
+<strong>Шум</strong><br>
+<span>2026</span>
+</div>
+
+<div class="timeline-item">
+<strong>Дожить</strong><br>
+<span>2023</span>
+</div>
+
+</div>
+
+</section>
+
+<section id="lyrics" class="container">
+<h2>Тексты</h2>
+
+<p>Здесь можно добавить тексты песен.</p>
+
+</section>
+
+<section id="links" class="container">
+<h2>Ссылки</h2>
+
+<p>
+Spotify<br>
+Apple Music<br>
+YouTube<br>
+VK<br>
+Telegram
+</p>
+
+</section>
+
+<div id="player-screen">
+<h3 id="player-title">Now playing</h3>
+<div class="player-controls">
+<button id="playBtn">Play</button>
+<button id="closePlayer">Close</button>
+</div>
+</div>
+
+<script>
+
+/* INTRO REMOVED FOR MOBILE STABILITY */
+
+/* BURGER MENU */
+
+const burger=document.getElementById("burger")
+const mobileMenu=document.getElementById("mobileMenu")
+
+burger.onclick=()=>{
+mobileMenu.classList.toggle("active")
+}
+
+/* SMOOTH SCROLL */
+
+document.querySelectorAll('a[href^="#"]').forEach(link=>{
+
+link.onclick=e=>{
+
+const id=link.getAttribute("href")
+
+if(id.length>1){
+
+e.preventDefault()
+
+mobileMenu.classList.remove("active")
+
+const el=document.querySelector(id)
+
+window.scrollTo({
+ top:el.offsetTop-60,
+ behavior:"smooth"
+})
+
+}
+
+}
+
+})
+
+/* PARTICLES BACKGROUND */
+
+const canvas=document.getElementById("particles")
+const ctx=canvas.getContext("2d")
+
+canvas.width=window.innerWidth
+canvas.height=window.innerHeight
+
+let particles=[]
+
+for(let i=0;i<60;i++){
+particles.push({
+ x:Math.random()*canvas.width,
+ y:Math.random()*canvas.height,
+ vx:(Math.random()-.5)*.5,
+ vy:(Math.random()-.5)*.5
+})
+}
+
+function animate(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height)
+
+ctx.fillStyle="rgba(255,255,255,.15)"
+
+particles.forEach(p=>{
+
+p.x+=p.vx
+p.y+=p.vy
+
+if(p.x<0||p.x>canvas.width)p.vx*=-1
+if(p.y<0||p.y>canvas.height)p.vy*=-1
+
+ctx.fillRect(p.x,p.y,2,2)
+
+})
+
+requestAnimationFrame(animate)
+
+}
+
+animate()
+
+/* PLAYER */
+
+let audio=new Audio()
+
+const player=document.getElementById("player-screen")
+const title=document.getElementById("player-title")
+
+
+document.querySelectorAll(".play").forEach(btn=>{
+
+btn.onclick=e=>{
+
+const track=e.target.closest(".track")
+
+const src=track.dataset.audio
+
+if(!src) return
+
+const name=track.querySelector("span").textContent
+
+
+audio.src=src
+
+audio.play()
+
+
+title.textContent=name
+
+player.classList.add("active")
+
+}
+
+})
+
+
+document.getElementById("closePlayer").onclick=()=>{
+
+player.classList.remove("active")
+
+audio.pause()
+
+}
+
+</script>
+
+</body>
+</html>
