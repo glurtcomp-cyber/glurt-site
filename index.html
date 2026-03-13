@@ -1,5 +1,5 @@
-
 <!DOCTYPE html>
+
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -19,14 +19,12 @@ color:white;
 overflow-x:hidden;
 }
 
-/* центральный контейнер */
 .container{
 max-width:1100px;
 margin:auto;
 padding:40px 20px;
 }
 
-/* навигация */
 nav{
 position:fixed;
 top:0;
@@ -46,7 +44,6 @@ margin:auto;
 padding:16px 20px;
 }
 
-/* glitch логотип */
 .logo{
 font-size:20px;
 letter-spacing:4px;
@@ -60,7 +57,6 @@ animation:glitch 1.6s infinite;
 100%{text-shadow:2px 0 red,-2px 0 cyan}
 }
 
-/* меню */
 .menu{
 display:flex;
 }
@@ -75,7 +71,6 @@ cursor:pointer;
 
 .menu a:hover{color:white}
 
-/* hero */
 .hero{
 min-height:100vh;
 display:flex;
@@ -88,7 +83,6 @@ font-size:clamp(60px,14vw,120px);
 
 .hero p{color:#aaa}
 
-/* секции */
 section{
 padding:100px 0;
 border-top:1px solid #111;
@@ -99,10 +93,6 @@ font-size:clamp(26px,6vw,36px);
 margin-bottom:30px;
 }
 
-/* ============================
-ГОРИЗОНТАЛЬНЫЙ СЛАЙДЕР АЛЬБОМОВ
-============================ */
-
 .discography{
 display:flex;
 gap:20px;
@@ -111,8 +101,6 @@ overflow-y:hidden;
 scroll-behavior:smooth;
 padding-bottom:10px;
 }
-
-/* минималистичный скроллбар */
 
 .discography::-webkit-scrollbar{
 height:6px;
@@ -152,8 +140,6 @@ color:#aaa;
 font-size:13px;
 }
 
-/* hover карточка */
-
 .hover-card{
 position:absolute;
 left:50%;
@@ -183,35 +169,11 @@ color:#aaa;
 margin-bottom:12px;
 }
 
-/* новая кнопка PLAY */
-
-.play-btn{
-border:1px solid rgba(255,255,255,.3);
-background:transparent;
-color:white;
-padding:8px 18px;
-cursor:pointer;
-border-radius:20px;
-font-size:12px;
-letter-spacing:1px;
-transition:.25s;
-backdrop-filter:blur(6px);
-}
-
-.play-btn:hover{
-background:white;
-color:black;
-}
-
-/* waveform */
-
 .wave{
 width:100%;
 height:40px;
 margin-top:8px;
 }
-
-/* ссылки */
 
 #links a{
 display:block;
@@ -221,8 +183,6 @@ text-decoration:none;
 }
 
 #links a:hover{color:white}
-
-/* мобильная адаптация */
 
 @media(max-width:750px){
 
@@ -245,13 +205,10 @@ min-width:150px;
 }
 
 </style>
+
 </head>
 
 <body>
-
-<!-- ========================
-НАВИГАЦИЯ
-======================== -->
 
 <nav>
 <div class="nav-inner">
@@ -259,23 +216,13 @@ min-width:150px;
 <div class="logo">GLURT</div>
 
 <div class="menu">
-
-<!--
-Ссылки меню.
-data-scroll указывает на id блока.
-JS делает плавный скролл.
--->
-
 <a data-scroll="#about">Обо мне</a>
 <a data-scroll="#music">Музыка</a>
 <a data-scroll="#links">Ссылки</a>
-
 </div>
 
 </div>
 </nav>
-
-<!-- HERO -->
 
 <section class="hero container">
 
@@ -286,8 +233,6 @@ JS делает плавный скролл.
 
 </section>
 
-<!-- ABOUT -->
-
 <section id="about" class="container">
 
 <h2>Обо мне</h2>
@@ -295,30 +240,9 @@ JS делает плавный скролл.
 
 </section>
 
-<!-- MUSIC -->
-
 <section id="music" class="container">
 
 <h2>Музыка</h2>
-
-<!--
-КАК ДОБАВИТЬ ТРЕК
-
-<div class="album"
-data-audio="music/song.mp3"
-data-quote="Цитата из песни">
-
-<img src="cover.jpg">
-<span>Название • 2026</span>
-
-<div class="hover-card">
-<div class="quote"></div>
-<button class="play-btn">PLAY</button>
-<canvas class="wave"></canvas>
-</div>
-
-</div>
--->
 
 <div class="discography">
 
@@ -326,14 +250,12 @@ data-quote="Цитата из песни">
 data-audio="ISKRENNIY.mp3"
 data-quote="В моей голове шум">
 
-<img src="https://avatars.yandex.net/get-music-content/16469857/db61d810.a.40525428-1/300x300">
+<img src="https://avatars.yandex.net/get-music-content/15406468/0810dae3.a.40798163-1/300x300">
 <span>Искренний • 2026</span>
 
 <div class="hover-card">
 
 <div class="quote"></div>
-
-<button class="play-btn">PLAY</button>
 
 <canvas class="wave"></canvas>
 
@@ -345,27 +267,15 @@ data-quote="В моей голове шум">
 
 </section>
 
-<!-- LINKS -->
-
 <section id="links" class="container">
 
 <h2>Ссылки</h2>
 
-<a href="#" target="_blank">Spotify</a>
-<a href="#" target="_blank">Apple Music</a>
-<a href="#" target="_blank">YouTube</a>
-<a href="#" target="_blank">VK</a>
-<a href="#" target="_blank">Telegram</a>
+<a href="#">Spotify</a> <a href="#">Apple Music</a> <a href="#">YouTube</a> <a href="#">VK</a> <a href="#">Telegram</a>
 
 </section>
 
 <script>
-
-/*
-===============================
-ПЛАВНЫЙ СКРОЛЛ МЕНЮ
-===============================
-*/
 
 document.querySelectorAll("[data-scroll]").forEach(link=>{
 
@@ -382,12 +292,6 @@ behavior:"smooth"
 
 })
 
-/*
-===============================
-ГЛОБАЛЬНЫЙ ПЛЕЕР
-===============================
-*/
-
 const audio = new Audio()
 
 const albums = document.querySelectorAll(".album")
@@ -395,50 +299,12 @@ const albums = document.querySelectorAll(".album")
 albums.forEach(album=>{
 
 const card = album.querySelector(".hover-card")
-
 const quote = album.dataset.quote
+const src = album.dataset.audio
 
 album.querySelector(".quote").textContent = quote
 
-/* hover для ПК */
-
-album.addEventListener("mouseenter",()=>{
-
-if(window.innerWidth>768){
-card.classList.add("active")
-}
-
-})
-
-album.addEventListener("mouseleave",()=>{
-
-if(window.innerWidth>768){
-card.classList.remove("active")
-}
-
-})
-
-/* тап для телефона */
-
-album.addEventListener("click",()=>{
-
-if(window.innerWidth<=768){
-card.classList.toggle("active")
-}
-
-})
-
-/*
-КНОПКА PLAY
-*/
-
-const btn = album.querySelector(".play-btn")
-
-btn.addEventListener("click",e=>{
-
-e.stopPropagation()
-
-const src = album.dataset.audio
+function play(){
 
 if(!src) return
 
@@ -447,15 +313,58 @@ audio.play()
 
 startWave(album)
 
-})
+}
+
+function stop(){
+
+audio.pause()
+audio.currentTime = 0
+
+}
+
+album.addEventListener("mouseenter",()=>{
+
+if(window.innerWidth>768){
+
+card.classList.add("active")
+play()
+
+}
 
 })
 
-/*
-===============================
-WAVEFORM АНИМАЦИЯ
-===============================
-*/
+album.addEventListener("mouseleave",()=>{
+
+if(window.innerWidth>768){
+
+card.classList.remove("active")
+stop()
+
+}
+
+})
+
+album.addEventListener("click",()=>{
+
+if(window.innerWidth<=768){
+
+if(card.classList.contains("active")){
+
+card.classList.remove("active")
+stop()
+
+}else{
+
+card.classList.add("active")
+play()
+
+}
+
+}
+
+})
+
+})
 
 function startWave(album){
 
